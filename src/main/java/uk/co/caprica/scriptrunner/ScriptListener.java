@@ -42,6 +42,6 @@ public interface ScriptListener {
 
     void noMoreRows();
 
-    void endScript(int successCount, int warningCount, int errorCount, long duration);
+    void endScript(int updateCount, int successCount, int warningCount, int errorCount, long duration);
 
 }

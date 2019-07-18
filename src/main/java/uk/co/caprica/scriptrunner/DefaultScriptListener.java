@@ -103,8 +103,9 @@ public class DefaultScriptListener implements ScriptListener {
     }
 
     @Override
-    public void endScript(int successCount, int warningCount, int errorCount, long duration) {
+    public void endScript(int updateCount, int successCount, int warningCount, int errorCount, long duration) {
         out.printf("End script execution at %s%n%n", DateFormat.getTimeInstance(DateFormat.LONG).format(new Date()));
+        out.printf("  Updates: %d rows%n%n", updateCount);
         out.printf("Successes: %d%n", successCount);
         out.printf(" Warnings: %d%n", warningCount);
         out.printf("   Errors: %d%n", errorCount);

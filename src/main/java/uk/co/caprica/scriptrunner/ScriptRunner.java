@@ -55,6 +55,7 @@ public class ScriptRunner {
     private boolean removeCRs;
     private boolean escapeProcessing = true;
 
+    private int updateCount;
     private int successCount;
     private int warningCount;
     private int errorCount;
@@ -135,7 +136,7 @@ public class ScriptRunner {
         } finally {
             rollbackConnection();
             endTime = System.currentTimeMillis();
-            notifyEndScript(successCount, warningCount, errorCount, endTime - startTime);
+            notifyEndScript(updateCount, successCount, warningCount, errorCount, endTime - startTime);
         }
     }
 
@@ -258,6 +259,7 @@ public class ScriptRunner {
                 if (hasResults) {
 //                    notifyResultSet();
                 } else {
+                    updateCount += statement.getUpdateCount();
                     notifyUpdateCount(statement.getUpdateCount());
                 }
 
@@ -338,6 +340,7 @@ public class ScriptRunner {
     }
 
     private void reset() {
+        this.updateCount = 0;
         this.successCount = 0;
         this.warningCount = 0;
         this.errorCount = 0;
@@ -381,8 +384,8 @@ public class ScriptRunner {
         notifyListeners(ScriptListener::noMoreRows);
     }
 
-    private void notifyEndScript(int successCount, int warningCount, int errorCount, long duration) {
-        notifyListeners(scriptListener -> scriptListener.endScript(successCount, warningCount, errorCount, duration));
+    private void notifyEndScript(int updateCount, int successCount, int warningCount, int errorCount, long duration) {
+        notifyListeners(scriptListener -> scriptListener.endScript(updateCount, successCount, warningCount, errorCount, duration));
     }
 
     private void notifyListeners(Consumer<ScriptListener> consumer) {

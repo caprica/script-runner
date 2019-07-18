@@ -61,7 +61,7 @@ public class ScriptAdapter implements ScriptListener {
     }
 
     @Override
-    public void endScript(int successCount, int warningCount, int errorCount, long duration) {
+    public void endScript(int updateCount, int successCount, int warningCount, int errorCount, long duration) {
     }
 
 }
