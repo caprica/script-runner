@@ -47,6 +47,7 @@ public class DefaultScriptListener implements ScriptListener {
 
     @Override
     public void comment(String comment) {
+        out.println(comment);
     }
 
     @Override
